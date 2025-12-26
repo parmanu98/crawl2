@@ -1,0 +1,145 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Crawler output
+output.json
+test_output.json
+test_universal.json
+test_idmerit.json
+test_simple.json
+test_direct_output.json
+crawler/output.json
+crawler/test_*.json
+
+# Backend storage
+backend/storage/
+backend/storage/*.json
+
+# Scrapy
+.scrapy/
+scrapy.egg-info/
+
+# Node modules (if using any frontend build tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+.directory
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*~
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.cache/
+*.cache
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Playwright browsers (optional - can be large)
+# Uncomment if you want to exclude browser binaries
+# .local/share/ms-playwright/
+
+# IDE specific
+.vscode/settings.json
+.vscode/launch.json
+.idea/workspace.xml
+.idea/tasks.xml
+
+# Project specific
+*.pid
+.env.production
+config.local.py
+
+# Downloaded HTML files
+*.html
+!frontend/index.html
+!crawler/crawler/spiders/*.html
+
+# Temporary test files
+test_*.py
+temp/
+tmp/
+
+# Compiled files
+*.pyc
+*.pyo
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Misc
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db

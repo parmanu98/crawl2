@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Web Crawler</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .form-section {
+      padding: 40px;
+      background: #f8f9fa;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      padding: 12px 15px;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .checkbox-group {
+      grid-column: span 2;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: white;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-item:hover {
+      border-color: #667eea;
+      background: #f8f9ff;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    .checkbox-item input[type="checkbox"]:checked+label {
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .same-domain-group {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e1e8ed;
+    }
+
+    .same-domain-group input[type="checkbox"] {
+      margin-right: 12px;
+      transform: scale(1.3);
+    }
+
+    .same-domain-group label {
+      font-size: 1.1rem;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+
+    .crawl-button {
+      width: 100%;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .crawl-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .crawl-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .results-section {
+      padding: 40px;
+      background: white;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e1e8ed;
+    }
+
+    .results-title {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .copy-button,
+    .download-button {
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .copy-button {
+      background: #28a745;
+    }
+
+    .copy-button:hover {
+      background: #218838;
+      transform: translateY(-1px);
+    }
+
+    .download-button {
+      background: #007bff;
+    }
+
+    .download-button:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+    }
+
+    .copy-button:disabled,
+    .download-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .status-running {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+
+    .status-completed {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-failed {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .json-output {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 25px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+      border: 1px solid #333;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .json-output::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .json-output::-webkit-scrollbar-track {
+      background: #2d2d2d;
+    }
+
+    .json-output::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .json-output::-webkit-scrollbar-thumb:hover {
+      background: #777;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .checkbox-group,
+      .same-domain-group {
+        grid-column: span 1;
+      }
+
+      .results-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+    }
+  </style>
+  <script defer src="app.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-spider"></i> Universal Web Crawler</h1>
+      <p>Extract structured data from any website with advanced crawling capabilities</p>
+    </div>
+
+    <div class="form-section">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="url"><i class="fas fa-link"></i> Target URL</label>
+          <input id="url" type="url" placeholder="https://example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="depth"><i class="fas fa-layer-group"></i> Crawl Depth</label>
+          <input id="depth" type="number" placeholder="1" min="0" max="5" value="1">
+        </div>
+
+        <div class="checkbox-group">
+          <label><i class="fas fa-list-check"></i> Data to Extract</label>
+          <div class="checkbox-grid">
+            <div class="checkbox-item">
+              <input type="checkbox" value="title" id="title" checked>
+              <label for="title">Page Title</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="meta" id="meta" checked>
+              <label for="meta">Meta Data</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="content" id="content" checked>
+              <label for="content">Text Content</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="links" id="links" checked>
+              <label for="links">Links</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="images" id="images" checked>
+              <label for="images">Images</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="structured" id="structured" checked>
+              <label for="structured">Structured Data</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" value="source" id="source">
+              <label for="source">HTML Source</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="same-domain-group">
+          <input id="same_domain" type="checkbox" checked>
+          <label for="same_domain"><i class="fas fa-shield-alt"></i> Stay within same domain</label>
+        </div>
+      </div>
+
+      <button class="crawl-button" onclick="startCrawl()">
+        <i class="fas fa-play"></i> Start Crawling
+      </button>
+    </div>
+
+    <div class="results-section">
+      <div class="results-header">
+        <h2 class="results-title"><i class="fas fa-code"></i> Crawl Results</h2>
+        <div class="button-group">
+          <button class="copy-button" id="copyButton" onclick="copyResults()" disabled>
+            <i class="fas fa-copy"></i> Copy JSON
+          </button>
+          <button class="download-button" id="downloadButton" onclick="downloadHtmlSource()" disabled
+            style="display: none;">
+            <i class="fas fa-download"></i> Download HTML
+          </button>
+        </div>
+      </div>
+
+      <div id="statusContainer"></div>
+
+      <div id="outputContainer">
+        <div class="empty-state">
+          <i class="fas fa-search"></i>
+          <h3>Ready to Crawl</h3>
+          <p>Enter a URL above and click "Start Crawling" to begin extracting data</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

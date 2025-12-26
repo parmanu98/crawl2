@@ -1,0 +1,9 @@
+scrapy
+scrapy-playwright
+fastapi
+uvicorn
+beautifulsoup4
+lxml
+python-dotenv
+pydantic
+requests

@@ -1,0 +1,59 @@
+#IDMaml
+
+Base URL: https://amldev2.idmerit.com/  
+Ping test: https://amldev2.idmerit.com/v1.4/ping
+API overview document: https://idmaml-doc.idmerit.com/ 
+Web page: https://amldev2.idmerit.com/AmlWeb
+
+Username: {username}
+
+Allotted request hits 10.
+
+It will expire after 45 days, which means 0000-00-00.
+
+The password will be sent in the comment.
+
+
+#IDMkyb
+
+Base URL: https://kybdev.idmerit.com/
+Ping test: https://kybdev.idmerit.com/v1.4/ping
+API overview document: https://idmkyb-doc.idmerit.com
+Web page: https://kybdev.idmerit.com/demo/login
+
+Username: {username}
+
+Allotted request hits 20.
+
+It will expire after 45 days, which means 0000-00-00.
+
+The password will be sent in the comment.
+
+#IDMtrust
+Base URL: https://itrust-dev.idmerit.com   
+Ping test: https://itrust-dev.idmerit.com/v2.1/ping
+API overview document: https://idmtrust-doc.idmerit.com/
+Web page: https://itrust-dev.idmerit.com/trustWeb
+
+Username: {username}
+
+Allotted request hits 20.
+
+It will expire after 45 days, which means 0000-00-00.
+
+The password will be sent in the following comment.
+
+
+#IDMsocial
+Base URL: https://idsocial-dev.idmerit.com  
+Ping test: https://idsocial-dev.idmerit.com/v2.1/ping
+API overview document: https://idmsocial-doc.idmerit.com  
+Web page: https://idsocial-dev.idmerit.com/socialWeb
+
+Username: {username}
+
+Allotted request hits 20.
+
+It will expire after 45 days, which means 0000-00-00.
+
+The password will be sent in the following comment.
